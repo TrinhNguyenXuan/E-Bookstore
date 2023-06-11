@@ -1,0 +1,7 @@
+table tr, table td{
+    text-align: center !important;
+}
+
+.main{
+    min-height: 75vh;
+}
