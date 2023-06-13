@@ -16,33 +16,17 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="header">
-            <div class="wrap-head-el">
-                <a href="./index.php">
-                    <img src="./assets/logo.svg" alt="logo" id="logo-shop" width="200" height="100">
-                </a>
-                <div class="tools">
-                    <input type="text" id="searching" onkeyup="filterBook()">
-                    <?php 
-                        if(!empty($_SESSION['user'])){
-                            echo '<a href="./cart.php"><i class="fa-solid fa-cart-shopping fa-xl" id="logo-cart"></i></a>';
-                            echo '<a href="./logout.php"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>';
-                        }
-                        else{
-                            echo '<a href="./login.php">Login</a>';
-                        }                     
-                    ?>                  
-                </div>
-            </div>
-        </div>
+        <?php 
+            require './component/header.php'
+        ?>
 
         <div class="main">
             <h1>Thanh toán thành công</h1>
         </div>
 
-        <div class="footer">
-            <h3>@Copyright by NguyenXuanTrinh (deptrai) 2023</h3>
-        </div>
+        <?php
+            require './component/footer.php'
+        ?>
     </div>
 </body>
 </html>

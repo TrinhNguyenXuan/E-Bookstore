@@ -14,17 +14,23 @@
         echo 'Vui lòng điền đủ thông tin';
         exit();
     }
+    
+    $title = $_POST['title'];
+    $price = $_POST['price'];
+    $description = $_POST['description'];
+    $cateId = $_POST['cateId'];
+    $id = $_POST['id'];
 
     if(isset($_FILES["img"])){
         $image = addslashes(file_get_contents($_FILES["img"]["tmp_name"]));
-        $query = 'UPDATE book 
-            SET title="' .$_POST["title"]. '",price='.$_POST["price"]. ',img="' .$image.'",description="' .$_POST["description"]. '", cateId= ' .$_POST['cateId']. '
-            WHERE id =' . $_POST["id"] .';';
+        $query = "UPDATE book 
+        SET title='$title ', price= $price, img = $image, description='$description', cateId= $cateId
+        WHERE id = $id;";
     }
     else{
-        $query = 'UPDATE book 
-            SET title="' .$_POST["title"]. '",price='.$_POST["price"]. ',description="' .$_POST["description"]. '", cateId= ' .$_POST['cateId']. '
-            WHERE id =' . $_POST["id"] .';';
+        $query = "UPDATE book 
+            SET title='$title ', price= $price , description='$description', cateId= $cateId
+            WHERE id = $id;";
     }
 
 

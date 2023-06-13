@@ -18,26 +18,9 @@
 </head>
 <body>
     <div class="wrapper">
-    <div class="header">
-            <div class="wrap-head-el">
-                <a href="./index.php">
-                    <img src="./assets/logo.svg" alt="logo" id="logo-shop" width="200" height="100">
-                </a>
-                <div class="tools">
-                    <input type="text" id="searching" onkeyup="filterBook()">
-                    <?php 
-                        if(!empty($_SESSION['user'])){
-                            echo '<a href="./cart.php"><i class="fa-solid fa-cart-shopping fa-xl" id="logo-cart"></i></a>';
-                            echo '<a href="./logout.php"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>';
-                        }
-                        else{
-                            echo '<a href="./login.php">Login</a>';
-                        }
-                                            
-                    ?>                  
-                </div>
-            </div>
-        </div>
+        <?php 
+            require './component/header.php'
+        ?>
 
         <div class="main">
             <div class="list-book">
@@ -50,8 +33,9 @@
                         $query = 'SELECT * FROM book WHERE id=' .$cart['bookId'];
                         $books = $conn->query($query);
                         $book = mysqli_fetch_assoc($books);
-                        echo '<div class="book">
-                            <img src="' .$book["img"]. '" >
+                        echo '<div class="book">';
+                        echo '<img src="data:image/jpg;base64, ' .base64_encode($book["img"]). '" >';
+                        echo '
                             <p class="title">' .$book["title"]. '</p>
                             <p class="price">' .$book["price"]. '$</p>
                             <p class="quantity" id="book' .$cart['bookId']. '">Số lượng: ' .$cart['quantity']. '</p>
@@ -72,12 +56,10 @@
             </div>
         </div>
 
-        <div class="footer">
-            <h3>@Copyright by NguyenXuanTrinh (deptrai) 2023</h3>
-        </div>
+        <?php 
+            require './component/footer.php'
+        ?>
     </div>
-    <!-- <script src="./JS/data.js" type="module"></script> -->
-    <!-- <script src="./JS/cart.js"></script> -->
     <script>
             function payment(){
                 var total = $('#total').text();

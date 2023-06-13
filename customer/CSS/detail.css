@@ -1,0 +1,204 @@
+.main{
+    display: grid;
+    max-width: 1100px;
+    min-height: 85vh;
+    margin: 0 auto;
+    margin-top: 5vh;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: min-content;
+    grid-gap: 50px;
+}
+
+.picture{
+    display: flex;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    height: 500px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.picture > img{
+    width: 100%;
+    height: 100%;
+}
+
+.info{
+    grid-column-start: 3;
+    grid-column-end: 6;
+    height: 500px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.main-info{
+    height: 30%;
+}
+
+.main-info > h1{
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.main-info > p{
+    font-size: 30px;
+}
+
+.warranty{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 40%;
+    margin: 20px 0;
+}
+
+.warrant{
+    font-size: 24px;
+}
+
+.warrant > i{
+    color: blue;
+}
+
+.description{
+    grid-column-start: 1;
+    grid-column-end: 6;
+    height:fit-content;
+    background-color: white;
+    line-height: 1.6;
+    padding: 20px;
+    padding-top: 0;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.description >h1{
+    margin-bottom: 30px;
+}
+
+.description img{
+    max-width: 100%;
+}
+
+.btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: 10%;
+}
+
+.btn > button{
+    margin-top: 5%;
+    width: 40%;
+    height: 100%;
+    font-size: larger;
+    border-radius: 10px;
+    border: none;
+    color: white;
+}
+
+.buy-btn{
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.buy-btn:hover{
+    box-shadow: 2px 2px 5px red;
+    cursor: pointer;
+}
+
+.add-btn{
+    background-color: rgba(0, 128, 0, 0.7);
+}
+
+.add-btn:hover{
+    box-shadow: 2px 2px 5px green;
+    cursor: pointer;
+}
+
+.evaluations{
+    grid-column-start: 1;
+    grid-column-end: 6;
+    background-color: white;
+    padding: 20px;
+}
+
+.write-comment{
+    margin: 20px 0;
+    border: 1px solid black;
+    padding: 10px;
+    padding-bottom: 50px;
+    position: relative;
+}
+
+.write-comment p{
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.stars{
+    margin: 20px 0;
+}
+
+.star{
+    cursor: pointer;
+}
+
+.write-comment textarea{
+    width: 100%;
+    resize: none;
+    padding: 5px;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.write-comment textarea:focus{
+    outline-color: rgba(0, 0, 0, 0.3);
+}
+
+.cmt-btn{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 50px;
+    height: 25px;
+    background-color: orange;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.cmt-btn:hover{
+    border: 1px solid orange;
+    background-color: white;
+    color: orange;
+}
+
+.user-comment{
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0;
+    padding: 5px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.user-comment > p , .evaluate{
+    display: inline-block;
+}
+
+.user-comment > p{
+    width: 25%;
+    font-size: 18px;
+}
+
+.comment{
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.evaluate{
+    padding-left: 20px;
+    border-left: 1px solid rgba(128, 128, 128, 0.5);
+}
+
+.checked{
+    color: orange;
+}

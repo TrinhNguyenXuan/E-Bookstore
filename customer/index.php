@@ -31,27 +31,9 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="header">
-            <div class="wrap-head-el">
-                <a href="./index.php">
-                    <img src="./assets/logo.svg" alt="logo" id="logo-shop" width="200" height="100">
-                </a>
-                <div class="tools">
-                    <input type="text" id="searching" onkeyup="filterBook()">
-                    <?php 
-                        if(!empty($_SESSION['user'])){
-                            echo '<a href="./cart.php"><i class="fa-solid fa-cart-shopping fa-xl" id="logo-cart"></i></a>';
-                            echo '<a href="./logout.php"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>';
-                        }
-                        else{
-                            echo '<a href="./login.php">Login</a>';
-                        }
-                        
-                        
-                    ?>                  
-                </div>
-            </div>
-        </div>
+        <?php 
+            require './component/header.php'
+        ?>
         <div class="alert">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
             Thêm vào giỏ hàng thành công.
@@ -63,14 +45,10 @@
                 $result = $conn->query($query);
                 while($row = mysqli_fetch_assoc($result))
                 {
-                    echo '<div class="book">
-                        <img src="' .$row["img"]. '" >
+                    echo '<div class="book" onclick="navigate('.$row['id']. ')">
+                        <img src="data:image/jpg;base64, ' .base64_encode($row["img"]). '" >
                         <p class="title">' .$row["title"]. '</p>
                         <p class="price">' .$row["price"]. '$</p>
-                        <div class="btn">
-                            <button class="buy-btn" onclick="buyNow(' .$row["id"]. ')"> Buy </button>
-                            <button class="add-btn" onclick="addBook(' .$row["id"]. ')"> Add </button>
-                        </div>
                     </div>';
                 }
             ?>
@@ -95,50 +73,14 @@
             ?>
         </div>
 
-        <div class="footer">
-            <h3>@Copyright by NguyenXuanTrinh (deptrai) 2023</h3>
-        </div>
+        <?php 
+            require './component/footer.php'
+        ?>
     </div>
-    <!-- <script src="./JS/data.js" type="module"></script> -->
-    <!-- <script src="./JS/books.js"></script> -->
     <script src="./JS/filter.js"></script>
     <script>
-        function buyNow(value){
-            window.location.href = "./pay_one_book.php?bookId=" +value
-        }
-
-        function addBook(value){
-            $.ajax(
-                {
-                    url: 'http://localhost/customer/ajax/addBook.php',
-                    method: 'POST',
-                    data: {
-                        bookId: value
-                    },
-                    success: function(response){
-                        if(response == "no login")
-                        {
-                            alert('Vui lòng đăng nhập để mua hàng')
-                            window.location.href = './login.php'
-                        }
-                        else{
-                            notify()
-                        }
-                    },
-                    error: function (e){
-                        console.log(e.message);
-                        throw e
-                    }
-                }
-            )
-        }
-
-        function notify(){
-            var noti = document.getElementsByClassName("alert")[0]
-            noti.style.display = "block"
-            setTimeout(()=>{
-                noti.style.display = "none"
-            },3000)
+        function navigate(id){
+            window.location.href = "detail.php?id=" + id
         }
     </script>
 </body>

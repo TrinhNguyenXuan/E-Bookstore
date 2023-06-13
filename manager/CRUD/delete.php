@@ -9,7 +9,9 @@
         die("Error connect!!!" . mysqli_connect_error());
     }
 
-    $query = 'DELETE FROM book WHERE id=' .$_POST["bookId"] ;
+    $bookId = $_POST["bookId"];
+
+    $query = "DELETE FROM book WHERE id=$bookId;";
     $conn->query($query);
     header("Location: http://localhost/manager/index.php");
     mysqli_close($conn)
