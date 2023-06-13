@@ -17,6 +17,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="./ckeditor/ckeditor.js"></script>
+    <script src="./ckfinder/ckfinder.js"></script>
     <link rel="stylesheet" href="./CSS/newbook.css">
     <link rel="stylesheet" href="./CSS/global.css">
     <title>Document</title>
@@ -30,7 +32,7 @@
                     <div class="mb3">
                         <label for="id" class="form-label">Id</label>
                         <?php 
-                            echo '<input type="number" name="id" class="form-control" value="' .$book["id"]. '"readonly style="background-color: gainsboro;">'
+                            echo '<input id="id" type="number" name="id" class="form-control" value="' .$book["id"]. '"readonly style="background-color: gainsboro;">'
                         ?>
                     </div>
                     <div class="mb-3">
@@ -46,10 +48,8 @@
                         ?>
                     </div>
                     <div class="mb-3">
-                        <label for="img" class="form-label">Image link</label>
-                        <?php 
-                            echo '<input type="text" name="img" class="form-control" id="img" value="' .$book["img"]. '">';
-                        ?>
+                        <label for="img" class="form-label">Image</label>
+                        <input type="file" name="img" class="form-control" id="img">
                     </div>
                     <div class="mb-3">
                         <label for="cateId" class="form-label">Category</label>
@@ -65,9 +65,12 @@
                                 }
                             ?>
                         </select>
-                        <span id="error" class="text-danger mb-5"></span>
                     </div>
-                    <span id="error" class="text-danger mb-5"></span>
+                    <div class="mb-3">
+                        <label for="editor1" class="form-label">Description</label>
+                        <textarea name="description" id="editor1" cols="30" rows="10"></textarea>
+                    </div>
+                    <span id="error" class="text-danger my-2"></span>
                     <button type="submit" id="submit" class="btn btn-primary col-6 offset-3 mt-5">Submit</button>
                 </form>
             </div>
@@ -79,10 +82,24 @@
         $(document).ready(function(){
             $('#submit').click(function(event){
                 event.preventDefault()
+                
+                var fileData = $('#img').prop('files')[0];
+                var description = CKEDITOR.instances.editor1.getData();
+                var formData = new FormData();
+                var id = <?php echo $_GET['id']; ?>;
+                formData.append('img',fileData)
+                formData.append('title', $('#title').val())
+                formData.append('price', $('#price').val())
+                formData.append('cateId', $('#cateId').val())
+                formData.append('description', description)
+                formData.append('id', id)
+
                 $.ajax({
                     url: 'http://localhost/manager/CRUD/update.php',
                     type: 'POST',
-                    data: $('#book-form').serialize(),
+                    data: formData,
+                    processData: false,
+                    contentType: false,
                     success: function(response){
                         if(response == "Success!") window.location.href = "./index.php"
                         else{
@@ -96,6 +113,20 @@
                 })
             })
         })
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            CKEDITOR.replace( 'editor1', {
+            filebrowserBrowseUrl: 'ckfinder/ckfinder.html',
+            filebrowserUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserWindowWidth: '1000',
+            filebrowserWindowHeight: '700'
+            } );
+            CKEDITOR.instances.editor1.setData(<?php echo '`'. $book['description'] .'`' ?>);
+
+        })
+
     </script>
 </body>
 </html>

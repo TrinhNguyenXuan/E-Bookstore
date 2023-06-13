@@ -9,6 +9,7 @@ book detail
 description
  -->
 
+ <?php require './Global_component/header/header.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,6 @@ description
     <script src="https://kit.fontawesome.com/8b076892ac.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <?php require './Global_component/header/header.php' ?>
     <div class="main container my-5">
         <div class="row mb-3">
             <div class="col-3">
@@ -52,7 +52,7 @@ description
                     <th scope="col">Id</th>
                     <th scope="col">Title</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Image link</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Category</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
@@ -72,7 +72,7 @@ description
                             <th scope="row">' .$row["id"]. '</th>
                             <td>' .$row["title"]. '</td>
                             <td>' .$row["price"]. '</td>
-                            <td>' .$row["img"]. '</td>
+                            <td><img src="data:image/jpg;base64, '.base64_encode($row["img"]). '" /></td>
                             <td>' .$category['name']. '</td>
                             <td><a class="btn btn-primary" href="http://localhost/manager/edit_book.php?id=' .$row["id"]. '" role="button"><i class="fa-regular fa-pen-to-square"></i></a></td>
                             <td>

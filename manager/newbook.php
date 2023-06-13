@@ -13,13 +13,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="./CSS/newbook.css">
     <link rel="stylesheet" href="./CSS/global.css">
+    <script src="./ckeditor/ckeditor.js"></script>
+    <script src="./ckfinder/ckfinder.js"></script>
     <title>Document</title>
 </head>
 <body>
     <?php require './Global_component/header/header.php' ?>
     <div class="main container my-5">
         <div class="row">
-            <div class="col-6 offset-3">
+            <div class="col-8 offset-2">
                 <form method="post" class="row" id="book-form">
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
@@ -30,8 +32,8 @@
                         <input type="number" name="price" class="form-control" id="price">
                     </div>
                     <div class="mb-3">
-                        <label for="img" class="form-label">Image link</label>
-                        <input type="text" name="img" class="form-control" id="img">
+                        <label for="img" class="form-label">Image</label>
+                        <input type="file" name="img" class="form-control" id="img">
                     </div>
                     <div class="mb-3">
                         <label for="cateId" class="form-label">Category</label>
@@ -47,8 +49,12 @@
                                 }
                             ?>
                         </select>
-                        <span id="error" class="text-danger mb-5"></span>
                     </div>
+                    <div class="mb-3">
+                        <label for="editor1" class="form-label">Description</label>
+                        <textarea name="description" id="editor1" cols="30" rows="10"></textarea>
+                    </div>
+                    <span id="error" class="text-danger mb-5"></span>
                     <button type="submit" id="submit" class="btn btn-primary col-6 offset-3 mt-5">Submit</button>
                 </form>
             </div>
@@ -60,10 +66,22 @@
         $(document).ready(function(){
             $('#submit').click(function(event){
                 event.preventDefault()
+                var fileData = $('#img').prop('files')[0];
+                var description = CKEDITOR.instances.editor1.getData();
+                var formData = new FormData();
+                formData.append('img',fileData)
+                formData.append('title', $('#title').val())
+                formData.append('price', $('#price').val())
+                formData.append('cateId', $('#cateId').val())
+                formData.append('description', description)
+
                 $.ajax({
                     url: 'http://localhost/manager/CRUD/create.php',
                     type: 'POST',
-                    data: $('#book-form').serialize(),
+                    data: formData,
+                    // dataType: 'json',
+                    processData: false,
+                    contentType: false,
                     success: function(response){
                         if(response == "Success!") window.location.href = "./index.php"
                         else{
@@ -78,6 +96,18 @@
             })
         })
     </script>
+    <script>
+                // Replace the <textarea id="editor1"> with a CKEditor 4
+                // instance, using default configuration.
+                // CKEDITOR.replace( 'editor1' );
+    CKEDITOR.replace( 'editor1', {
+    filebrowserBrowseUrl: 'ckfinder/ckfinder.html',
+    filebrowserUploadUrl: 'ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+    filebrowserWindowWidth: '1000',
+    filebrowserWindowHeight: '700'
+    } );
+    </script>
+
 </body>
 </html>
 

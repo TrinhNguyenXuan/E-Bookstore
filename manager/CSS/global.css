@@ -5,3 +5,7 @@ table tr, table td{
 .main{
     min-height: 75vh;
 }
+
+.ck-editor__editable_inline {
+    min-height: 300px;
+}
