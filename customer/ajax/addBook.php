@@ -13,11 +13,13 @@
     if(empty($row)){
         $query = 'INSERT INTO cart(bookId,cusId,quantity) VALUE (' . $_POST['bookId']. ','. $_SESSION["user"]. ', 1);';
         $conn->query($query);
+        echo 'new-book';
     }
     else{
         $quantity = $row['quantity'] +1;
         $query = 'UPDATE cart SET quantity = ' .$quantity. ' WHERE cusId = ' .$_SESSION['user']. ' AND bookId = '. $_POST['bookId']. ';';
         $conn->query($query);
+        echo 'old-book';
     }
 
 ?>

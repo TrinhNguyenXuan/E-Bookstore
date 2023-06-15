@@ -11,21 +11,50 @@
 
 .picture{
     display: flex;
+    flex-direction: column;
     grid-column-start: 1;
     grid-column-end: 3;
-    height: 500px;
+    height: 600px;
     border: 1px solid rgba(128, 128, 128, 0.5);
+    background-color: white;
 }
 
 .picture > img{
     width: 100%;
+    height: 85%;
+}
+
+.picture > .list-prod-img{
+    width: 100%;
+    height: 12%;
+    margin-top: calc(600px*3/100);
+    display: flex;
+    justify-content: space-between;
+}
+
+.prod-img, .prod-img-plus{
+    width: 20%;
     height: 100%;
+    cursor: pointer;
+}
+
+.prod-img-plus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    color: white;
+}
+
+.prod-img-plus:hover{
+    background-color: black;
+
 }
 
 .info{
     grid-column-start: 3;
     grid-column-end: 6;
-    height: 500px;
+    height: 600px;
     background-color: white;
     padding: 20px;
     border: 1px solid rgba(128, 128, 128, 0.5);
@@ -42,6 +71,12 @@
 
 .main-info > p{
     font-size: 30px;
+}
+
+.avg-star{
+    color: orange;
+    margin-top: 10px;
+    font-size: 32px;
 }
 
 .warranty{
@@ -120,6 +155,7 @@
     grid-column-end: 6;
     background-color: white;
     padding: 20px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
 }
 
 .write-comment{
@@ -202,3 +238,71 @@
 .checked{
     color: orange;
 }
+
+.bg-slide{
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.wrap-slide{
+    display: flex;
+    width: 80%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrap-slide *{
+    background-color: white;
+    height: 100%;
+    height: 80%;
+}
+
+.img-slide{
+    width: 50%;
+}
+
+.img-slide >img{
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.left-slide, .right-slide{
+    display: flex;
+    align-items: center;
+    width: 10%;
+    background-color: rgba(128, 128, 128, 0.6);
+}
+
+.enable-hover:hover{
+    background-color: grey;
+}
+
+.left-slide > i, .right-slide > i{
+    display: flex;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    border-radius: 50%;
+    background-color: rgb(94,94,94);
+    color: white;
+}
+
+.cancel-slide{
+    margin: 30px;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+

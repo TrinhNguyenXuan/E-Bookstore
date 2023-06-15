@@ -7,7 +7,7 @@ CREATE TABLE book(
 	id INT NOT NULL AUTO_INCREMENT,
 	title VARCHAR(255),
     price INT,
-    img BLOB,
+    img MEDIUMBLOB,
     description TEXT,
     cateId INT,
     PRIMARY KEY (id)
@@ -53,6 +53,13 @@ CREATE TABLE evaluation(
     PRIMARY KEY (id)
 );
 
+CREATE TABLE product_img(
+	id INT NOT NULL AUTO_INCREMENT,
+    img MEDIUMBLOB,
+    bookId INT,
+    PRIMARY KEY (id)
+);
+
 INSERT INTO category(name) VALUES ("Horror"),("Fantasy"),("Romantic");
 
 -- INSERT INTO book(title,price,img,description,cateId) VALUES ("Book1",100,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 1",1),
@@ -77,6 +84,5 @@ INSERT INTO administrator(username, password) VALUES ("admin","123456");
 INSERT INTO evaluation(rating, comment, cusId, bookId) VALUES 
 (5,"Tạm ổn",1,1),
 (4,"Sách chán òm",2,1),
-(1,"Sách chán quá trời",1,1)
-;
+(1,"Sách chán quá trời",1,1);
 

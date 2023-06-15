@@ -36,6 +36,10 @@
                         <input type="file" name="img" class="form-control" id="img">
                     </div>
                     <div class="mb-3">
+                        <label for="product-img" class="form-label">Product image</label>
+                        <input type="file" name="product-img" class="form-control" id="product-img" multiple>
+                    </div>
+                    <div class="mb-3">
                         <label for="cateId" class="form-label">Category</label>
                         <select class="form-select" name="cateId" id="cateId" aria-label="Default select example">
                             <?php 
@@ -66,14 +70,21 @@
         $(document).ready(function(){
             $('#submit').click(function(event){
                 event.preventDefault()
-                var fileData = $('#img').prop('files')[0];
+                var imgData = $('#img').prop('files')[0];
                 var description = CKEDITOR.instances.editor1.getData();
+                var totalImg = document.getElementById('product-img').files.length;
+
                 var formData = new FormData();
-                formData.append('img',fileData)
+                formData.append('img', imgData)
                 formData.append('title', $('#title').val())
                 formData.append('price', $('#price').val())
                 formData.append('cateId', $('#cateId').val())
                 formData.append('description', description)
+
+                for(let i=0; i<totalImg; i++){
+                    let name = 'product-img'+i
+                    formData.append(name, document.getElementById('product-img').files[i])
+                }
 
                 $.ajax({
                     url: 'http://localhost/manager/CRUD/create.php',

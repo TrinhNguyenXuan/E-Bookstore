@@ -17,7 +17,7 @@
                     <input type="text" id="searching" onkeyup="filterBook()">
                     <?php 
                         if(!empty($_SESSION['user'])){
-                            echo '<a href="./cart.php"><i class="fa-solid fa-cart-shopping fa-xl" id="logo-cart"></i><span>' .$num. '</span></a>';
+                            echo '<a href="./cart.php"><i class="fa-solid fa-cart-shopping fa-xl" id="logo-cart"></i><span id="item-cart">' .$num. '</span></a>';
                             echo '<a href="./logout.php"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>';
                         }
                         else{
