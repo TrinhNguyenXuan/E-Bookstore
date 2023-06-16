@@ -32,27 +32,22 @@
                         <input type="number" name="price" class="form-control" id="price">
                     </div>
                     <div class="mb-3">
-                        <label for="img" class="form-label">Image</label>
-                        <input type="file" name="img" class="form-control" id="img">
-                    </div>
-                    <div class="mb-3">
                         <label for="product-img" class="form-label">Product image</label>
                         <input type="file" name="product-img" class="form-control" id="product-img" multiple>
                     </div>
                     <div class="mb-3">
                         <label for="cateId" class="form-label">Category</label>
-                        <select class="form-select" name="cateId" id="cateId" aria-label="Default select example">
+                        <br>
+                        <button name="cateId" id="cateId" type="button" class="btn btn-secondary dropdown-toggle">Secondary</button><span id="num-cate" class="ms-2 text-primary">0 thể loại được chọn</span>
+                        <div class="list-category list-group mt-1">
                             <?php 
                                 $query = 'SELECT * FROM category';
                                 $result = $conn->query($query);
                                 while($row = mysqli_fetch_assoc($result)){
-                                    if($row['id']==1) echo '<option value="1" selected>' .$row['name'].'</option>';
-                                    else{
-                                        echo '<option value="' .$row['id']. '">' .$row['name'].'</option>';
-                                    }
+                                    echo '<a class="category list-group-item list-group-item-action" onclick="handleCategory(' .$row['id']. '-1)">' .$row['name'].'</a>';
                                 }
                             ?>
-                        </select>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="editor1" class="form-label">Description</label>
@@ -70,20 +65,21 @@
         $(document).ready(function(){
             $('#submit').click(function(event){
                 event.preventDefault()
-                var imgData = $('#img').prop('files')[0];
                 var description = CKEDITOR.instances.editor1.getData();
                 var totalImg = document.getElementById('product-img').files.length;
 
                 var formData = new FormData();
-                formData.append('img', imgData)
                 formData.append('title', $('#title').val())
                 formData.append('price', $('#price').val())
-                formData.append('cateId', $('#cateId').val())
                 formData.append('description', description)
 
                 for(let i=0; i<totalImg; i++){
                     let name = 'product-img'+i
                     formData.append(name, document.getElementById('product-img').files[i])
+                }
+
+                for(let i=0; i<selectCate.length; i++){
+                    formData.append('category[]',selectCate[i])
                 }
 
                 $.ajax({
@@ -105,7 +101,42 @@
                     }
                 })
             })
+
         })
+
+        var numCate =
+        <?php 
+            $query = "SELECT COUNT(*) as num_cate FROM category;";
+            $result= $conn->query($query);
+            $num_cate = mysqli_fetch_assoc($result)['num_cate'];
+            echo $num_cate;
+        ?>
+
+        var selectCate = Array(numCate);
+        selectCate.fill(0);
+        var numSelected = 0
+        
+        $('#cateId').click(function(){
+            if($('.list-category').css('display') == 'none') $('.list-category').css('display','block')
+            else $('.list-category').css('display','none')
+        })
+
+        function handleCategory(value){
+            if(selectCate[value]){
+                selectCate[value] = 0
+                numSelected--
+                let select = '.category:eq(' + value + ')';
+                $(select).removeClass('bg-success').removeClass('text-white')
+            }
+            else{
+                selectCate[value] = 1
+                numSelected++
+                let select = '.category:eq(' + value + ')';
+                $(select).addClass('bg-success').addClass('text-white')
+            }
+            $('#num-cate').text(numSelected+' thể loại được chọn')
+        }
+
     </script>
     <script>
                 // Replace the <textarea id="editor1"> with a CKEditor 4

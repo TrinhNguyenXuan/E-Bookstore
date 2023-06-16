@@ -96,9 +96,8 @@
 }
 
 .description{
-    grid-column-start: 1;
-    grid-column-end: 6;
-    height:fit-content;
+    width: 100%;
+    height: fit-content;
     background-color: white;
     line-height: 1.6;
     padding: 20px;
@@ -151,8 +150,8 @@
 }
 
 .evaluations{
-    grid-column-start: 1;
-    grid-column-end: 6;
+    display: none;
+    width: 100%;
     background-color: white;
     padding: 20px;
     border: 1px solid rgba(128, 128, 128, 0.5);
@@ -284,6 +283,7 @@
 
 .enable-hover:hover{
     background-color: grey;
+    cursor: pointer;
 }
 
 .left-slide > i, .right-slide > i{
@@ -305,4 +305,48 @@
     cursor: pointer;
 }
 
+.tab-data{
+    grid-column-start: 1;
+    grid-column-end: 6;
+}
+
+.tab-list{
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+    height: 40px;
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-bottom: none;
+}
+
+.tab{
+    border: none;
+    height: 100%;
+    font-size: 14px;
+}
+
+.tab-selected{
+    background-color: white;
+    color: black;
+}
+
+.tab-non-selected{
+    color: white;
+    cursor: pointer;
+    background-color: rgba(128, 128, 128);
+}
+
+.tab-non-selected:hover{
+    background-color: rgb(185, 185, 185);
+    border: 1px solid rgba(128, 128, 128, 0.5);
+    border-bottom: none;
+}
+
+#tab1{
+    width: 60%;
+}
+
+#tab2{
+    width: 40%;
+}
 

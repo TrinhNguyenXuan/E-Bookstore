@@ -17,6 +17,10 @@
     width: 100vw;
 }
 
+.close-btn{
+    cursor: pointer;
+}
+
 .header{     
     background-color: lightblue;
     height: 120px;

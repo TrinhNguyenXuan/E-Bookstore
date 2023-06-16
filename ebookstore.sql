@@ -7,9 +7,7 @@ CREATE TABLE book(
 	id INT NOT NULL AUTO_INCREMENT,
 	title VARCHAR(255),
     price INT,
-    img MEDIUMBLOB,
     description TEXT,
-    cateId INT,
     PRIMARY KEY (id)
 );
 
@@ -43,6 +41,11 @@ CREATE TABLE category(
     PRIMARY KEY(id)
 );
 
+CREATE TABLE bookCate(
+	bookId INT,
+    cateId INT
+);
+
 CREATE TABLE evaluation(
 	id INT NOT NULL AUTO_INCREMENT,
     rating INT,
@@ -60,18 +63,7 @@ CREATE TABLE product_img(
     PRIMARY KEY (id)
 );
 
-INSERT INTO category(name) VALUES ("Horror"),("Fantasy"),("Romantic");
-
--- INSERT INTO book(title,price,img,description,cateId) VALUES ("Book1",100,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 1",1),
--- ("Book2",200,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 2",2),
--- ("Book3",250,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 3",3),
--- ("Book4",260,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 4",2),
--- ("Book5",270,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 5",1),
--- ("Book6",270,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 6",2),
--- ("Book7",270,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 7",3),
--- ("Book8",270,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 8",3),
--- ("Book9",270,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 9",1),
--- ("Book10",270,"https://upload.wikimedia.org/wikipedia/vi/4/45/Berserk_vol01.jpg","Description 10",1);
+INSERT INTO category(name) VALUES ("Horror"),("Fantasy"),("Romantic"),("Advanture"),("Children");
 
 INSERT INTO customer(username, password,name) VALUES 
 ("trinhdeptrai","123abc","Nguyen Xuan Trinh"),

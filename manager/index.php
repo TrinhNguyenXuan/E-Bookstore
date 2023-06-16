@@ -52,7 +52,6 @@ description
                     <th scope="col">Id</th>
                     <th scope="col">Title</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Image</th>
                     <th scope="col">Category</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
@@ -64,16 +63,24 @@ description
                     else $query = "SELECT * FROM book;";
                     $result = $conn->query($query);
                     while($row = mysqli_fetch_assoc($result)){
-                        $query = 'SELECT * FROM category WHERE id=' .$row['cateId'];
-                        $result2 = $conn->query($query);
-                        $category = mysqli_fetch_assoc($result2);
+                        $query = "SELECT * FROM bookcate WHERE bookId = " .$row['id'];
+                        $result_book_cate = $conn->query($query);
+                        $book_cate = mysqli_fetch_all($result_book_cate);
+                        $category_str ='';
+                        for($i=0; $i<count($book_cate); $i++){
+                            $query = 'SELECT * FROM category WHERE id=' .$book_cate[$i][1];
+                            $category_result = $conn->query($query);
+                            $category = mysqli_fetch_assoc($category_result);
+                            if(!$i) $category_str .= $category['name'];
+                            else $category_str .= ", " .$category['name'];
+                            
+                        }
                         echo 
                         '<tr>
                             <th scope="row">' .$row["id"]. '</th>
                             <td>' .$row["title"]. '</td>
                             <td>' .$row["price"]. '</td>
-                            <td><img src="data:image/jpg;base64, '.base64_encode($row["img"]). '" /></td>
-                            <td>' .$category['name']. '</td>
+                            <td>' .$category_str. '</td>
                             <td><a class="btn btn-primary" href="http://localhost/manager/edit_book.php?id=' .$row["id"]. '" role="button"><i class="fa-regular fa-pen-to-square"></i></a></td>
                             <td>
                                 <button class="btn btn-danger" name="id" onclick="delBook(' .$row['id'].')"><i class="fa-regular fa-trash"></i></button>  

@@ -13,24 +13,29 @@
     $title = $_POST["title"];
     $price = $_POST["price"];
     $description = $_POST["description"];
-    $cateId = $_POST["cateId"];
+    $categories = $_POST["category"];
 
-    if(empty($title) || empty($price) || empty($description) || empty($cateId) 
-    || !isset($_FILES["img"]["tmp_name"]) || !isset($_FILES["product-img0"]["tmp_name"]))
+    if(empty($title) || empty($price) || empty($description) || !isset($_FILES["product-img0"]["tmp_name"]))
     {
         echo 'Vui lòng điền đủ thông tin';
         exit();
     }
 
-    $image = addslashes(file_get_contents($_FILES["img"]["tmp_name"]));  
+    for($i=0;$i<count($categories);$i++){
+        if($categories[$i]) break;
+        if($i==count($categories)-1) {
+            echo 'Vui lòng điền đủ thông tin';
+            exit();
+        }
+    }
     
-    $query = "INSERT INTO book(title,price,img,description,cateId) VALUES 
-    ('$title', $price, '$image', '$description', $cateId );";
+    $query = "INSERT INTO book(title,price,description) VALUES 
+    ('$title', $price, '$description');";
 
     $conn->query($query);
 
     $query = "SELECT * FROM book 
-    WHERE title = '$title' AND price = $price AND description = '$description' AND cateId = $cateId";
+    WHERE title = '$title' AND price = $price AND description = '$description'";
     $result = $conn->query($query);
     $bookId = mysqli_fetch_assoc($result)["id"];
 
@@ -51,6 +56,16 @@
         $query = "INSERT INTO product_img(img,bookId) VALUES ('$product_img',$bookId);";
         $conn->query(($query));
     }
+
+    for($i=0; $i<count($categories); $i++){
+        if($categories[$i]==1){
+            $cateId = $i+1;
+            $query = "INSERT INTO bookCate VALUES($bookId,$cateId)";
+            $conn->query($query);
+        }
+    }
+
+
 
     echo "Success!";
     mysqli_close($conn)
